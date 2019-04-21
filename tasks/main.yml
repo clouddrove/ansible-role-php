@@ -1,0 +1,6 @@
+---
+
+-  import_tasks: php-fpm.yml
+-  import_tasks: php-pecl.yml
+-  import_tasks: php-config.yml
+

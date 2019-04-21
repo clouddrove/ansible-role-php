@@ -1,0 +1,65 @@
+---
+# install php
+- name: remove php 7.1 fpm
+  shell: apt-get -y purge "php7.1.*" "php5.*" "php7.3.*"
+  become: true
+  ignore_errors: true
+
+- name: add php 7 repo
+  apt_repository:
+    repo: 'ppa:ondrej/php'
+    update_cache: yes
+    validate_certs: no
+
+- name: install php-fpm and packages
+  apt:
+    name: ['php{{ php-version }}-fpm', 'php{{ php-version }}', 'php{{ php-version }}-common', 'php{{ php-version }}-cli', 'php{{ php-version }}-curl', 'php{{ php-version }}-gd', 'php{{ php-version }}-gmp', 'php{{ php-version }}-imap', 'php{{ php-version }}-intl', 'php{{ php-version }}-readline', 'php{{ php-version }}-opcache',
+    'php{{ php-version }}-mysql', 'php{{ php-version }}-json', 'php{{ php-version }}-apcu', 'php-redis', 'php{{ php-version }}-apcu', 'php{{ php-version }}-bz2', 'php{{ php-version }}-bcmath','php{{ php-version }}-mbstring',
+    'php{{ php-version }}-soap', 'php{{ php-version }}-xml', 'php{{ php-version }}-zip', 'php{{ php-version }}-dev', 'php{{ php-version }}-mongodb','php{{ php-version }}-sqlite3','pkg-config',
+    'libssl-dev','libsslcommon2-dev','libpcre3-dev','libsasl2-dev']
+    state: latest
+    update_cache: yes
+    cache_valid_time: 5400
+  register: phpfpm_result
+  notify:
+   - reload php-fpm
+
+- name: phpenmod items
+  shell: phpenmod mcrybt mongodb apcu
+
+- name: ensure phpfpm log is enabled
+  file:
+    path: /var/log/php/
+    mode: 0755
+    state: directory
+
+- name: ensure phpfpm log is enabled
+  file:
+    path: "{{ item }}"
+    mode: 644
+    state: touch
+  with_items:
+    - /var/log/php-pool-upstream.error.log
+    - /var/log/php-pool-queue.error.log
+    - /var/log/php-ini-error.log
+    - /var/log/php-pool-www.error.log
+
+- name: download composer
+  get_url:
+    url: http://getcomposer.org/installer
+    force: yes
+    dest: /tmp/composer
+    mode: 0755
+
+- name: install composer
+  shell: php /tmp/composer --install-dir=/usr/local/bin creates=/usr/local/bin/composer
+
+- name: rename composer.phar to composer
+  shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+
+- name: make composer executable
+  file:
+    path: /usr/local/bin/composer
+    mode: a+x
+    state: file
+
