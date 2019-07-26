@@ -1,19 +1,10 @@
 ---
 ## install pecl libraries
 
-- name: update pecl channel
-  shell: pecl update-channels
-  become: true
-
 - name: create pecl extensions .ini files
   template:
     src: files/mods-available/mongodb.ini
-    dest: "{{ php_dir }}/mods-available/mongodb.ini"
+    dest: "/etc/php/7.2/mods-available/mongodb.ini"
     owner: root
     group: root
     mode: 0755
-
-- name: enable pecl extensions
-  shell: phpenmod  {{ item }}
-  with_items:
-    - mongodb
