@@ -1,3 +1,5 @@
 ---
 
-php-version: 7.2
+php_version: 7.2
+php_dir: "/etc/php/7.2/"
+php_fpm_dir: "/etc/php/7.2/fpm"
