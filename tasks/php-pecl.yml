@@ -6,6 +6,7 @@
   command: pecl update-channels
   become: true
 
+
 - name: create pecl extensions .ini files
   template:
     src: files/mods-available/mongodb.ini
