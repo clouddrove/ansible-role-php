@@ -1,5 +1,6 @@
 ---
 # install php
+
 - name: add php 7 repo
   apt_repository:
     repo: 'ppa:ondrej/php'
@@ -46,6 +47,10 @@
   register: phpfpm_result
   notify:
     - reload php-fpm
+
+- name: phpenmod items
+  changed_when: false
+  command: phpenmod mcrypt mongodb apcu
 
 - name: ensure phpfpm log is enabled
   file:
