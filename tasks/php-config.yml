@@ -33,7 +33,7 @@
        path:  {{ php_dir }}
        owner: root
        group: root
-       mode; 0755  # yamllint disable-line rule:line-length
+       mode: 0755  # yamllint disable-line rule:line-length
 
 - name: restart php
   changed_when: false
