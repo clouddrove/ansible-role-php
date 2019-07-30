@@ -1,7 +1,7 @@
 ---
 # install php
 
-- name: add php 7 repo
+- name: add php {{ php_version }} repo
   apt_repository:
     repo: 'ppa:ondrej/php'
     update_cache: true
@@ -37,7 +37,6 @@
       'php{{ php_version }}-sqlite3',
       'pkg-config',
       'libssl-dev',
-      'libsslcommon2-dev',
       'libpcre3-dev',
       'libsasl2-dev'
     ]

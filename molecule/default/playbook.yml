@@ -1,5 +1,5 @@
 ---
 - name: Converge
-  hosts: localhost
+  hosts: 192.168.32.101
   roles:
     - role: ansible-role-php
