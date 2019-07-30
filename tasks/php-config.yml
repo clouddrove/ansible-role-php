@@ -26,9 +26,14 @@
     force: true
 
 - name: Change php-fpm ownership
-  action: file state=directory recurse=yes path={{ php_dir }} owner=root group=root mode=0755  # yamllint disable-line rule:line-length
-  tags:
-    - php-deploy
+  action:
+     file:
+       state:  directory
+       recurse: yes
+       path:  {{ php_dir }}
+       owner: root
+       group: root
+       mode; 0755  # yamllint disable-line rule:line-length
 
 - name: restart php
   changed_when: false
