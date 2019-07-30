@@ -2,18 +2,15 @@
 
 - name: start php-fpm
   service:
-    name: "php{{ php-version }}-fpm"
+    name: "php{{ php_version }}-fpm"
     state: started
 
 - name: reload php-fpm
   service:
-    name: "php{{ php-version }}-fpm"
+    name: "php{{ php_version }}-fpm"
     state: reloaded
 
 - name: restart php-fpm
   service:
-    name: "php{{ php-version }}-fpm"
+    name: "php{{ php_version }}-fpm"
     state: restarted
-
-- name: restart php-dev
-  shell: "service php{{ php-version }}-fpm restart"

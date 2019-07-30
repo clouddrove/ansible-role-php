@@ -2,8 +2,10 @@
 ## install pecl libraries
 
 - name: update pecl channel
-  shell: pecl update-channels
+  changed_when: false
+  command: pecl update-channels
   become: true
+
 
 - name: create pecl extensions .ini files
   template:
@@ -14,6 +16,7 @@
     mode: 0755
 
 - name: enable pecl extensions
-  shell: phpenmod  {{ item }}
+  changed_when: false
+  command: phpenmod  {{ item }}
   with_items:
     - mongodb

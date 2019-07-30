@@ -1,31 +1,55 @@
 ---
 # install php
-- name: remove php 7.1 fpm
-  shell: apt-get -y purge "php7.1.*" "php5.*" "php7.3.*"
-  become: true
-  ignore_errors: true
 
-- name: add php 7 repo
+- name: add php {{ php_version }} repo
   apt_repository:
     repo: 'ppa:ondrej/php'
-    update_cache: yes
-    validate_certs: no
+    update_cache: true
+    validate_certs: false
 
 - name: install php-fpm and packages
   apt:
-    name: ['php{{ php-version }}-fpm', 'php{{ php-version }}', 'php{{ php-version }}-common', 'php{{ php-version }}-cli', 'php{{ php-version }}-curl', 'php{{ php-version }}-gd', 'php{{ php-version }}-gmp', 'php{{ php-version }}-imap', 'php{{ php-version }}-intl', 'php{{ php-version }}-readline', 'php{{ php-version }}-opcache',
-    'php{{ php-version }}-mysql', 'php{{ php-version }}-json', 'php{{ php-version }}-apcu', 'php-redis', 'php{{ php-version }}-apcu', 'php{{ php-version }}-bz2', 'php{{ php-version }}-bcmath','php{{ php-version }}-mbstring',
-    'php{{ php-version }}-soap', 'php{{ php-version }}-xml', 'php{{ php-version }}-zip', 'php{{ php-version }}-dev', 'php{{ php-version }}-mongodb','php{{ php-version }}-sqlite3','pkg-config',
-    'libssl-dev','libsslcommon2-dev','libpcre3-dev','libsasl2-dev']
-    state: latest
-    update_cache: yes
+    name: [
+      'php{{ php_version }}-fpm',
+      'php{{ php_version }}',
+      'php{{ php_version }}-common',
+      'php{{ php_version }}-cli',
+      'php{{ php_version }}-curl',
+      'php{{ php_version }}-gd',
+      'php{{ php_version }}-gmp',
+      'php{{ php_version }}-imap',
+      'php{{ php_version }}-intl',
+      'php{{ php_version }}-readline',
+      'php{{ php_version }}-opcache',
+      'php{{ php_version }}-mysql',
+      'php{{ php_version }}-json',
+      'php{{ php_version }}-apcu',
+      'php-redis',
+      'php{{ php_version }}-apcu',
+      'php{{ php_version }}-bz2',
+      'php{{ php_version }}-bcmath',
+      'php{{ php_version }}-mbstring',
+      'php{{ php_version }}-soap',
+      'php{{ php_version }}-xml',
+      'php{{ php_version }}-zip',
+      'php{{ php_version }}-dev',
+      'php{{ php_version }}-mongodb',
+      'php{{ php_version }}-sqlite3',
+      'pkg-config',
+      'libssl-dev',
+      'libpcre3-dev',
+      'libsasl2-dev'
+    ]
+    state: present
+    update_cache: true
     cache_valid_time: 5400
   register: phpfpm_result
   notify:
-   - reload php-fpm
+    - reload php-fpm
 
 - name: phpenmod items
-  shell: phpenmod mcrybt mongodb apcu
+  changed_when: false
+  command: phpenmod mcrypt mongodb apcu
 
 - name: ensure phpfpm log is enabled
   file:
@@ -34,9 +58,10 @@
     state: directory
 
 - name: ensure phpfpm log is enabled
+  changed_when: false
   file:
     path: "{{ item }}"
-    mode: 644
+    mode: 0644
     state: touch
   with_items:
     - /var/log/php-pool-upstream.error.log
@@ -47,19 +72,18 @@
 - name: download composer
   get_url:
     url: http://getcomposer.org/installer
-    force: yes
+    force: true
     dest: /tmp/composer
     mode: 0755
 
 - name: install composer
-  shell: php /tmp/composer --install-dir=/usr/local/bin creates=/usr/local/bin/composer
+  command: php /tmp/composer --install-dir=/usr/local/bin creates=/usr/local/bin/composer  # yamllint disable-line rule:line-length
 
 - name: rename composer.phar to composer
-  shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+  command: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer  # yamllint disable-line rule:line-length
 
 - name: make composer executable
   file:
     path: /usr/local/bin/composer
     mode: a+x
     state: file
-
