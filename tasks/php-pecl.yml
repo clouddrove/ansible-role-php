@@ -2,9 +2,9 @@
 ## install pecl libraries
 
 - name: update pecl channel
-  changed_when: false
-  command: pecl update-channels
-  become: true
+  pear:
+    name: pecl/update-channels
+    state: present
 
 
 - name: create pecl extensions .ini files

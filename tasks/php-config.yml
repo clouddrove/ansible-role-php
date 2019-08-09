@@ -1,5 +1,5 @@
 ---
-## copy php-fpm files
+## copy php-fpm config  files
 
 - name: transfer pool.d php-fpm configuration
   template:
@@ -9,7 +9,6 @@
   with_fileglob:
     - ../templates/files/pool.d/*.conf
 
-
 - name: transfer mods-available php configuration
   template:
     src: "{{ item }}"
@@ -18,15 +17,29 @@
   with_fileglob:
     - ../templates/files/mods-available/*.ini
 
-
 - name: transfer php.ini php-fpm configuration
   template:
     src: files/php.ini
     dest: "{{ php_fpm_dir }}/php.ini"
     force: true
 
-- name: Change php-fpm ownership
-  action: file state=directory recurse=yes path={{ php_dir }} owner=root group=root mode=0755  # yamllint disable-line rule:line-length
+- name: transfer php.ini apache configuration
+  template:
+    src: files/php.ini
+    dest: "{{ php_dir }}/apache2/php.ini"
+    force: true
+  when: is_web_server_is_apache == true
+  notify:
+    - restart apache2
+
+- name: change php-fpm ownership
+  file:
+    path: "{{ php_dir }}"
+    state: directory
+    owner: root
+    group: root
+    recurse: yes
+  changed_when: "False"
 
 - name: restart php
   changed_when: false

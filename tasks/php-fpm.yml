@@ -40,10 +40,19 @@
       'libpcre3-dev',
       'libsasl2-dev'
     ]
-    state: present
+    state: "{{ state }}"
     update_cache: true
     cache_valid_time: 5400
   register: phpfpm_result
+  notify:
+    - reload php-fpm
+
+- name: enable php enable with apache
+  apt:
+    name: libapache2-mod-php7.2
+    state: "{{ state }}"
+    update_cache: true
+  when: is_web_server_is_apache == true
   notify:
     - reload php-fpm
 
