@@ -3,7 +3,7 @@
 
 - name: create phpfpm log is enabled
   file:
-    path: /var/log/php/
+    path: "{{ log_path }}"
     mode: 0755
     state: directory
 
@@ -14,10 +14,10 @@
     mode: 0644
     state: touch
   with_items:
-    - /var/log/php-pool-upstream.error.log
-    - /var/log/php-pool-queue.error.log
-    - /var/log/php-ini-error.log
-    - /var/log/php-pool-www.error.log
+    - "{{ log_path }}/php-pool-upstream.error.log"
+    - "{{ log_path }}/php-pool-queue.error.log"
+    - "{{ log_path }}/php-ini-error.log"
+    - "{{ log_path }}/php-pool-www.error.log"
 
 - name: transfer pool.d php-fpm configuration
   template:
