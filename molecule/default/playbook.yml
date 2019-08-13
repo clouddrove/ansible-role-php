@@ -1,5 +1,5 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: localhost
   roles:
     - role: ansible-role-php
