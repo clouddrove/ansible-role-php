@@ -9,10 +9,10 @@
     mode: 0755
 
 - name: install composer
-  command: php /tmp/composer --install-dir=/usr/local/bin creates=/usr/local/bin/composer
+  command: php /tmp/composer --install-dir=/usr/local/bin creates=/usr/local/bin/composer # yamllint disable-line rule:line-length
 
 - name: rename composer.phar to composer
-  command: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+  command: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer # yamllint disable-line rule:line-length
 
 - name: make composer executable
   file:
