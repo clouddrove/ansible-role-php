@@ -63,7 +63,7 @@
     state: directory
     owner: root
     group: root
-    recurse: yes
+    recurse: true
   changed_when: "False"
 
 - name: set is default inslled version
