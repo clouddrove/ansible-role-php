@@ -9,6 +9,8 @@
   service:
     name: "php{{ php_version }}-fpm"
     state: reloaded
+  when: state == "present"
+
 
 - name: restart php-fpm
   service:

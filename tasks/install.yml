@@ -7,7 +7,7 @@
     update_cache: true
     validate_certs: false
 
-- name: install php-fpm and packages
+- name: install/remove php-fpm and packages
   apt:
     name: [
       'php{{ php_version }}-fpm',
@@ -39,7 +39,7 @@
       'libssl-dev',
       'libpcre3-dev',
       'libsasl2-dev',
-      libmcrypt-dev
+      'libmcrypt-dev'
     ]
     state: "{{ state }}"
     update_cache: true
@@ -71,4 +71,5 @@
   with_items:
     - mongodb
     - apcu
-    - mcrypt-1.0.1
+    - mcrypt
+    - redis
