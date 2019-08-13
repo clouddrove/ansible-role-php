@@ -7,7 +7,7 @@
     update_cache: true
     validate_certs: false
 
-- name: install php-fpm and packages
+- name: install/remove php-fpm and packages
   apt:
     name: [
       'php{{ php_version }}-fpm',
@@ -38,52 +38,38 @@
       'pkg-config',
       'libssl-dev',
       'libpcre3-dev',
-      'libsasl2-dev'
+      'libsasl2-dev',
+      'libmcrypt-dev'
     ]
-    state: present
+    state: "{{ state }}"
     update_cache: true
     cache_valid_time: 5400
   register: phpfpm_result
   notify:
     - reload php-fpm
 
-- name: phpenmod items
-  changed_when: false
-  command: phpenmod mcrypt mongodb apcu
+- name: enable php enable with apache
+  apt:
+    name: "libapache2-mod-php{{ php_version }}"
+    state: "{{ state }}"
+    update_cache: true
+  when: is_web_server_is_apache
+  notify:
+    - reload php-fpm
 
-- name: ensure phpfpm log is enabled
-  file:
-    path: /var/log/php/
-    mode: 0755
-    state: directory
-
-- name: ensure phpfpm log is enabled
+- name: update pecl channel
   changed_when: false
-  file:
-    path: "{{ item }}"
-    mode: 0644
-    state: touch
+  command: pecl update-channels
+  become: true
+  when: state == "present"
+
+- name: enable pecl extensions
+  pear:
+    name: "pecl/{{ item }}"
+    state: "{{ state }}"
+  ignore_errors: true
   with_items:
-    - /var/log/php-pool-upstream.error.log
-    - /var/log/php-pool-queue.error.log
-    - /var/log/php-ini-error.log
-    - /var/log/php-pool-www.error.log
-
-- name: download composer
-  get_url:
-    url: http://getcomposer.org/installer
-    force: true
-    dest: /tmp/composer
-    mode: 0755
-
-- name: install composer
-  command: php /tmp/composer --install-dir=/usr/local/bin creates=/usr/local/bin/composer  # yamllint disable-line rule:line-length
-
-- name: rename composer.phar to composer
-  command: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer  # yamllint disable-line rule:line-length
-
-- name: make composer executable
-  file:
-    path: /usr/local/bin/composer
-    mode: a+x
-    state: file
+    - mongodb
+    - apcu
+    - mcrypt
+    - redis

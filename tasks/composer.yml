@@ -1,0 +1,23 @@
+---
+# install php composer
+
+- name: download composer
+  get_url:
+    url: http://getcomposer.org/installer
+    force: true
+    dest: /tmp/composer
+    mode: 0755
+
+# yamllint disable
+- name: install composer
+  command: php /tmp/composer --install-dir=/usr/local/bin creates=/usr/local/bin/composer
+
+- name: rename composer.phar to composer
+  command: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+# yamllint enable
+
+- name: make composer executable
+  file:
+    path: /usr/local/bin/composer
+    mode: a+x
+    state: file
