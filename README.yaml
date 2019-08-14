@@ -5,7 +5,7 @@
 #
 
 # Name of this project
-name : Ansible Role PHP
+name: Ansible Role PHP
 
 # License of this project
 license: "MIT"
@@ -23,6 +23,7 @@ badges:
     url: "LICENSE.md"
 
 # Prerequesties to display
+# yamllint disable
 prerequesties:
   - name: "Ansible2.8"
     url: "https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html"
@@ -32,7 +33,7 @@ prerequesties:
     url: "https://molecule.readthedocs.io/en/stable/installation.html"
   - name: "Docker"
     url: "https://docs.docker.com/install/linux/docker-ce/ubuntu"
-
+# yamllint enable
 # What Includes to display
 what_includes:
   - name: "PHP"
@@ -45,7 +46,7 @@ description: |-
   This ansible role is used to install PHP server on Debian.
 
 # How to use this project
-usage : |-
+usage: |-
   ### Simple Example
   For including the role in your playbook this is the basic configuration:
   ```ansible
