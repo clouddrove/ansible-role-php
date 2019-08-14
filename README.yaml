@@ -52,6 +52,7 @@ usage: |-
   ```ansible
       - hosts: localhost
         remote_user: root
+        become: true
         roles:
           - ansible-role-php
   ```
