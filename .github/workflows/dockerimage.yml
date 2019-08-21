@@ -12,3 +12,5 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: pip install ansible molecule docker
+    - name: test molicule
+      run: molecule test
