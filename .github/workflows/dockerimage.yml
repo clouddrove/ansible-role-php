@@ -6,9 +6,11 @@ jobs:
 
   build:
  
-    runs-on: retr0h/molecule
+    runs-on: ubuntu-18.04
  
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image
-      run: molecule test
+    - name: installl vim
+      run: apt-get install vim
+    - name: vim version
+      run: vim --version
