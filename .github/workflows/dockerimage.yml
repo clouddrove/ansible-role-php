@@ -11,6 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: installl vim
-      run: apt-get install vim
+      run: sudo apt-get install vim
     - name: vim version
       run: vim --version
