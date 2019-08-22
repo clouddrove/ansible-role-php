@@ -10,6 +10,6 @@ jobs:
  
     steps:
     - uses: actions/checkout@v1
-    - name: installl vim
-      run: sudo apt-get install vim
-      run: vim --version
+    - name: installl Molecule
+      run: mkdir molecule && cd molecule && sudo apt-get install python3-venv && source .venv/bin/activate && pip install -U setuptools pip 'molecule' && molecule --version
+      
