@@ -11,5 +11,5 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: installl Molecule
-      run: docker run --rm -it -v "$(pwd)":/tmp/$(basename "${PWD}"):ro -v /var/run/docker.sock:/var/run/docker.sock  -w /tmp/$(basename "${PWD}") quay.io/ansible/molecule:2.20 molecule test
+      run: docker run --rm -i -v "$(pwd)":/tmp/$(basename "${PWD}"):ro -v /var/run/docker.sock:/var/run/docker.sock  -w /tmp/$(basename "${PWD}") quay.io/ansible/molecule:2.20 molecule test
       
