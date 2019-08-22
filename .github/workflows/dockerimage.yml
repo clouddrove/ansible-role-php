@@ -11,5 +11,5 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: installl Molecule
-      run: mkdir molecule && cd molecule && sudo apt-get install python3-venv && source .venv/bin/activate && pip install -U setuptools pip 'molecule' && molecule --version
+      run: mkdir test && cd molecule && sudo apt-get install python3-venv && source .venv/bin/activate && pip install -U setuptools pip 'molecule' && molecule --version
       
