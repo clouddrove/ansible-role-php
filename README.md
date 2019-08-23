@@ -90,7 +90,7 @@ Example Playbook
   - hosts: localhost
     remote_user: root
     roles:
-        - ansible-role-php
+        - clouddrove.ansible_role_common
 ```
 
 
