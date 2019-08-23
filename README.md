@@ -76,6 +76,12 @@ Installation
 ```
 $ ansible-galaxy install zaxos.docker-ce-ansible-role
 ```
+## Ansible Galaxy
+
+You can find it on the official
+[Ansible Galaxy](https://galaxy.ansible.com/clouddrove) if you want to
+rate it.
+
 Example Playbook
 ----------------
 **IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/ansible-role-php/releases).
