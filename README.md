@@ -66,20 +66,10 @@ Distribution
 ## What Includes
 
 Followiing things includes in this role:
-- PHP
+- PHP>7.0
 - PHP-FPM
 - PECL
 - Composer
-
-## Supported variables
-The PHP version may be configured via the `php_version` variable; e.g.:
-
-```
-php_version: 7.0
-php_version: 7.1
-php_version: 7.2
-php_version: 7.3
-```
 
 Installation
 ------------
@@ -88,13 +78,14 @@ $ ansible-galaxy install zaxos.docker-ce-ansible-role
 ```
 Example Playbook
 ----------------
+**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/ansible-role-php/releases).
+
 ```yaml
   - hosts: localhost
     remote_user: root
     roles:
         - ansible-role-php
 ```
-**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/ansible-role-php/releases).
 
 
 ## Testing
