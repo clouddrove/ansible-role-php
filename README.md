@@ -79,13 +79,13 @@ php_version: 7.0
 php_version: 7.1
 php_version: 7.2
 php_version: 7.3
+```
 
 Installation
 ------------
 ```
 $ ansible-galaxy install zaxos.docker-ce-ansible-role
 ```
-
 Example Playbook
 ----------------
 ```yaml
