@@ -78,7 +78,7 @@ is_web_server_is_apache: true
 
 Installation
 ------------
-```bash
+```shell script
 ansible-galaxy install clouddrove.ansible_role_php
 ```
 
