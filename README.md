@@ -78,8 +78,8 @@ is_web_server_is_apache: true
 
 ```
 
-Installation
-------------
+##Installation
+
 ```console
 $ ansible-galaxy install clouddrove.ansible_role_php
 ```
@@ -93,7 +93,7 @@ Example Playbook
     remote_user: ubuntu
     become: true
     roles:
-        - ansible-role-php
+        - clouddrove.ansible_role_php
 ```
 
 ## Testing
