@@ -6,10 +6,12 @@ jobs:
 
   build: 
  
-    runs-on: paulfantom/ubuntu-molecule
+    runs-on: runs-on: ubuntu-18.04
  
     steps:
     - uses: actions/checkout@v1
     - name: installl Molecule
-      run: molecule test
-      
+      run: | 
+         sudo apt-get install -y python-pip libssl-dev
+         pip install --upgrade --user setuptools
+         pip install --user molecule
