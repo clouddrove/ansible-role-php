@@ -1,5 +1,4 @@
 ---
-## configure php fpm
 
 - name: create phpfpm log is enabled
   file:

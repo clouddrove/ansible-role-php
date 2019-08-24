@@ -95,17 +95,6 @@ Example Playbook
         - clouddrove.ansible_role_php
 ```
 
-## Testing
-
-
-In this module testing is performed with [molecule](https://molecule.readthedocs.io/en/stable/index.html) and it is designed to aid in the development and testing of Ansible roles with multiple instances, operating systems and distributions, virtualization providers, test frameworks and testing scenarios.
-
-You need to run the following command in the root of Ansible Role:
-```console
-  $ molecule test
-```
-
-
 ## Feedback
 If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/ansible-role-php/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
 

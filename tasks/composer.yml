@@ -1,5 +1,4 @@
 ---
-# install php composer
 
 - name: download composer
   get_url:
