@@ -20,7 +20,7 @@
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Licence">
 </a>
 <a href="Distribution">
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Distribution">
+  <img src="https://img.shields.io/badge/Ubuntu-16.X%20%26%2018.X-brightgreen" alt="Distribution">
 </a>
 
 
