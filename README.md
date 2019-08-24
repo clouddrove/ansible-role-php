@@ -44,8 +44,6 @@
 
 We eat, drink, sleep and most importantly love **DevOps**. We are thinking Automation is better way to setup a server and install the required environments. It is critical to maintaining same environment on local, testing or production system so resolve this we move to create small role for environments element.
 
-This role is basically combination of [tasks in ansible-playbook](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html) and includes tests.
-
 
 
 ## Prerequisites
