@@ -4,12 +4,12 @@ on: [push]
 
 jobs:
 
-  build: paulfantom/ubuntu-molecule
+  build: 
  
-    runs-on: ubuntu-18.04
+    runs-on: paulfantom/ubuntu-molecule
  
     steps:
     - uses: actions/checkout@v1
     - name: installl Molecule
-      run: docker run --rm -i -v "$(pwd)":/tmp/$(basename "${PWD}"):ro -v /var/run/docker.sock:/var/run/docker.sock  -w /tmp/$(basename "${PWD}") quay.io/ansible/molecule:2.20 molecule test
+      run: molecule test
       
