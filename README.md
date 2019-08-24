@@ -79,8 +79,8 @@ is_web_server_is_apache: true
 ```
 
 ## Installation
-```console
- $ `ansible-galaxy install clouddrove.ansible_role_php`
+```consol
+ $ ansible-galaxy install clouddrove.ansible_role_php
 ```
 
 Example Playbook
