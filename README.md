@@ -68,7 +68,7 @@ Followiing things includes in this role:
 
 ## Variables
 
-```
+```yaml
 php_version: 7.3
 php_dir: "/etc/php/{{ php_version }}"
 php_fpm_dir: "/etc/php/{{ php_version }}/fpm"
