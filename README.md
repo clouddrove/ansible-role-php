@@ -54,8 +54,7 @@ This module has a few dependencies:
 
 - [Ansible2.8](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 - [Python](https://www.python.org/downloads)
-- [Molecule](https://molecule.readthedocs.io/en/stable/installation.html)
-- [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu)
+
 
 
 ## What Includes
