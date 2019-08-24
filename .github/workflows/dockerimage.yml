@@ -12,11 +12,10 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
-      - name: Setup Molecule Environment
+      - name: Setup Molecule Environment And Test Ansible Role
         run: |
          sudo apt-get install -y  python3-venv
          python3 -m venv .venv
          source .venv/bin/activate
          pip install -U setuptools pip 'molecule'
-      - name: Test Ansible Role
-        run: molecule test
+         molecule test
