@@ -1,5 +1,4 @@
 ---
-# install php
 
 - name: add php {{ php_version }} repo
   apt_repository:
