@@ -12,8 +12,9 @@ jobs:
     - uses: actions/checkout@v1
     - name: installl Molecule
       run: | 
-         sudo apt-get install -y python-pip libssl-dev
-         pip install --upgrade --user setuptools
-         pip install --user molecule
+         sudo apt-get install -y  python3-venv
+         python3 -m venv .venv
+         source .venv/bin/activate
+         pip install -U setuptools pip 'molecule'
+         molecule --version
          molecule test
- 
