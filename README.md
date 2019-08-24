@@ -19,12 +19,13 @@
 <a href="LICENSE.md">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Licence">
 </a>
-<a href="Distribution">
+<a href="https://ubuntu.com/">
   <img src="https://img.shields.io/badge/ubuntu-16.x-orange?style=flat&logo=ubuntu" alt="Distribution">
 </a>
-<a href="Distribution">
+<a href="https://ubuntu.com/">
   <img src="https://img.shields.io/badge/ubuntu-18.x-orange?style=flat&logo=ubuntu" alt="Distribution">
 </a>
+
 
 </p>
 <p align="center">
@@ -44,7 +45,9 @@
 
 
 
-We eat, drink, sleep and most importantly love **DevOps**. We are thinking Automation is better way to setup a server and install the required environments. It is critical to maintaining same environment on local, testing or production system so resolve this we move to create small role for environments element.
+We eat, drink, sleep and most importantly love **DevOps**. DevOps always promotes automation and standardisation. While setting up various environments like local, dev, testing, production, etc. it is critical to maintain the same environment across. This can easily be achieved using automating the environment setup & installation with the help of ansible-playbooks.
+
+Smaller roles are created for each environment elements; which also include tasks & tests. These roles can then be grouped together in [ansible-playbook](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html) to achieve the desired yet consistent results.
 
 
 
@@ -54,8 +57,8 @@ This module has a few dependencies:
 
 - [Ansible2.8](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 - [Python](https://www.python.org/downloads)
-- [Molecule](https://molecule.readthedocs.io/en/stable/installation.html)
-- [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu)
+
+
 
 
 ## What Includes
@@ -66,44 +69,47 @@ Followiing things includes in this role:
 - Pecl
 - Composer
 
+
+
+
+
+
+
+## Example Playbook
+
+**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/ansible-role-php/releases).
+
+
+```yaml
+- hosts: localhost
+  remote_user: ubuntu
+  become: true
+  roles:
+    - clouddrove.ansible_role_php
+```
+
+
 ## Variables
 
 ```yaml
-php_version: 7.3
-php_dir: "/etc/php/{{ php_version }}"
-php_fpm_dir: "/etc/php/{{ php_version }}/fpm"
-log_path: /var/log/php
-state: present
-is_web_server_is_apache: true
-
+  php_version: 7.3
+  php_dir: "/etc/php/{{ php_version }}"
+  php_fpm_dir: "/etc/php/{{ php_version }}/fpm"
+  log_path: /var/log/php
+  state: present
+  is_web_server_is_apache: true
 ```
 
+
 ## Installation
-```consol
+
+```console
   $ ansible-galaxy install clouddrove.ansible_role_php
 ```
 
-Example Playbook
-----------------
-**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/ansible-role-php/releases).
-
-```yaml
-  - hosts: localhost
-    remote_user: ubuntu
-    become: true
-    roles:
-        - clouddrove.ansible_role_php
-```
-
-## Testing
 
 
-In this module testing is performed with [molecule](https://molecule.readthedocs.io/en/stable/index.html) and it is designed to aid in the development and testing of Ansible roles with multiple instances, operating systems and distributions, virtualization providers, test frameworks and testing scenarios.
 
-You need to run the following command in the root of Ansible Role:
-```console
-  $ molecule test
-```
 
 
 ## Feedback
