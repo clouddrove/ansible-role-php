@@ -14,16 +14,16 @@
 <p align="center">
 
 <a href="https://www.ansible.com">
-  <img src="https://img.shields.io/badge/Ansible-2.8-green" alt="Ansible">
+  <img src="https://img.shields.io/badge/Ansible-2.8-green?style=flat&logo=ansible" alt="Ansible">
 </a>
 <a href="LICENSE.md">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Licence">
 </a>
 <a href="Distribution">
-  <img src="https://img.shields.io/badge/Ubuntu-16.x-yellowgreen" alt="Distribution">
+  <img src="https://img.shields.io/badge/ubuntu-16.x-orange?style=flat&logo=ubuntu" alt="Distribution">
 </a>
 <a href="Distribution">
-  <img src="https://img.shields.io/badge/Ubuntu-18.x-yellowgreen" alt="Distribution">
+  <img src="https://img.shields.io/badge/ubuntu-18.x-orange?style=flat&logo=ubuntu" alt="Distribution">
 </a>
 
 </p>
