@@ -4,7 +4,7 @@ dependencies: []
 
 galaxy_info:
   author: clouddrove
-  description: This ansible role install PHP-fpm at Debian.
+  description: This ansible role for install PHP-FPM.
   company: "CloudDrove, LLC"
   license: "license (BSD, MIT)"
   min_ansible_version: 2.4
