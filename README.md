@@ -19,6 +19,9 @@
 <a href="LICENSE.md">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Licence">
 </a>
+<a href="Distribution">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Distribution">
+</a>
 
 
 </p>
@@ -54,33 +57,32 @@ This module has a few dependencies:
 - [Molecule](https://molecule.readthedocs.io/en/stable/installation.html)
 - [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu)
 
-Distribution
-------------
-* OS support list:
-  * Ubuntu Bionic 18.04 (LTS)
-  * Ubuntu Xenial 16.04 (LTS)
-  * Ubuntu Yakkety 16.10
-  * Ubuntu Trusty 14.04 (LTS)
-
 
 ## What Includes
 
 Followiing things includes in this role:
-- PHP>7.0
-- PHP-FPM
-- PECL
+- Php-7.3
+- Php-fpm
+- Pecl
 - Composer
+
+## Variables
+
+```
+php_version: 7.3
+php_dir: "/etc/php/{{ php_version }}"
+php_fpm_dir: "/etc/php/{{ php_version }}/fpm"
+log_path: /var/log/php
+state: present
+is_web_server_is_apache: true
+
+```
 
 Installation
 ------------
 ```
-$ ansible-galaxy install zaxos.docker-ce-ansible-role
+ansible-galaxy install clouddrove.ansible_role_php
 ```
-## Ansible Galaxy
-
-You can find it on the official
-[Ansible Galaxy](https://galaxy.ansible.com/clouddrove) if you want to
-rate it.
 
 Example Playbook
 ----------------
@@ -88,11 +90,11 @@ Example Playbook
 
 ```yaml
   - hosts: localhost
-    remote_user: root
+    remote_user: ubuntu
+    become: true
     roles:
-        - clouddrove.ansible_role_common
+        - ansible-role-php
 ```
-
 
 ## Testing
 
