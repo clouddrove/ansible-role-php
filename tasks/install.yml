@@ -1,0 +1,74 @@
+---
+
+- name: add php {{ php_version }} repo
+  apt_repository:
+    repo: 'ppa:ondrej/php'
+    update_cache: true
+    validate_certs: false
+
+- name: install/remove php-fpm and packages
+  apt:
+    name: [
+      'php{{ php_version }}-fpm',
+      'php{{ php_version }}',
+      'php{{ php_version }}-common',
+      'php{{ php_version }}-cli',
+      'php{{ php_version }}-curl',
+      'php{{ php_version }}-gd',
+      'php{{ php_version }}-gmp',
+      'php{{ php_version }}-imap',
+      'php{{ php_version }}-intl',
+      'php{{ php_version }}-readline',
+      'php{{ php_version }}-opcache',
+      'php{{ php_version }}-mysql',
+      'php{{ php_version }}-json',
+      'php{{ php_version }}-apcu',
+      'php-redis',
+      'php{{ php_version }}-apcu',
+      'php{{ php_version }}-bz2',
+      'php{{ php_version }}-bcmath',
+      'php{{ php_version }}-mbstring',
+      'php{{ php_version }}-soap',
+      'php{{ php_version }}-xml',
+      'php{{ php_version }}-zip',
+      'php{{ php_version }}-dev',
+      'php{{ php_version }}-mongodb',
+      'php{{ php_version }}-sqlite3',
+      'pkg-config',
+      'libssl-dev',
+      'libpcre3-dev',
+      'libsasl2-dev',
+      'libmcrypt-dev'
+    ]
+    state: "{{ state }}"
+    update_cache: true
+    cache_valid_time: 5400
+  register: phpfpm_result
+  notify:
+    - reload php-fpm
+
+- name: enable php enable with apache
+  apt:
+    name: "libapache2-mod-php{{ php_version }}"
+    state: "{{ state }}"
+    update_cache: true
+  when: is_web_server_is_apache
+  notify:
+    - reload php-fpm
+
+- name: update pecl channel
+  changed_when: false
+  command: pecl update-channels
+  become: true
+  when: state == "present"
+
+- name: enable pecl extensions
+  pear:
+    name: "pecl/{{ item }}"
+    state: "{{ state }}"
+  ignore_errors: true
+  with_items:
+    - mongodb
+    - apcu
+    - mcrypt-1.0.2
+    - redis

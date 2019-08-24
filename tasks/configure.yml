@@ -1,0 +1,85 @@
+---
+
+- name: create phpfpm log is enabled
+  file:
+    path: "{{ log_path }}"
+    mode: 0755
+    state: directory
+
+- name: create phpfpm log is enabled
+  changed_when: false
+  file:
+    path: "{{ item }}"
+    mode: 0644
+    state: touch
+  with_items:
+    - "{{ log_path }}/php-pool-upstream-error.log"
+    - "{{ log_path }}/php-ini-error.log"
+    - "{{ log_path }}/php-pool-www-error.log"
+
+- name: transfer pool.d php-fpm configuration
+  template:
+    src: "{{ item }}"
+    dest: "{{ php_fpm_dir }}/pool.d/{{ item | basename }}"
+    force: true
+  with_fileglob:
+    - ../templates/config/pool.d/*.conf
+
+- name: transfer mods-available php configuration
+  template:
+    src: "{{ item }}"
+    dest: "{{ php_dir }}/mods-available/{{ item | basename }}"
+    force: true
+  with_fileglob:
+    - ../templates/config/mods-available/*.ini
+
+- name: transfer php.ini php-fpm configuration
+  template:
+    src: config/php.ini
+    dest: "{{ php_fpm_dir }}/php.ini"
+    force: true
+
+- name: copy pecl extensions .ini files
+  template:
+    src: "{{ item }}"
+    dest: "{{ php_dir }}/mods-available/{{ item | basename }}"
+    force: true
+  with_fileglob:
+    - ../templates/config/mods-available/*.ini
+
+- name: transfer php.ini apache configuration
+  template:
+    src: config/php.ini
+    dest: "{{ php_dir }}/apache2/php.ini"
+    force: true
+  when: is_web_server_is_apache
+  notify:
+    - restart apache2
+
+- name: change php-fpm ownership
+  file:
+    path: "{{ php_dir }}"
+    state: directory
+    owner: root
+    group: root
+    recurse: true
+  changed_when: "False"
+
+- name: set is default inslled version
+  changed_when: false
+  command: update-alternatives --set php /usr/bin/php{{ php_version }}
+  become: true
+
+- name: set is default inslled version for apache2
+  changed_when: false
+  command: a2enmod php{{ php_version }}
+  when: is_web_server_is_apache
+  become: true
+  notify:
+    - restart apache2
+
+- name: restart php
+  changed_when: false
+  command: /bin/true
+  notify:
+    - restart php-fpm

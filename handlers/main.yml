@@ -1,0 +1,23 @@
+---
+
+- name: start php-fpm
+  service:
+    name: "php{{ php_version }}-fpm"
+    state: started
+
+- name: reload php-fpm
+  service:
+    name: "php{{ php_version }}-fpm"
+    state: reloaded
+  when: state == "present"
+
+
+- name: restart php-fpm
+  service:
+    name: "php{{ php_version }}-fpm"
+    state: restarted
+
+- name: restart apache2
+  service:
+    name: apache2
+    state: restarted

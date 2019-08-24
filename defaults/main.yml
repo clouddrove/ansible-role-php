@@ -1,0 +1,14 @@
+---
+# php versions supported versions 7.0>
+php_version: 7.3
+
+# configurations
+php_dir: "/etc/php/{{ php_version }}"
+php_fpm_dir: "/etc/php/{{ php_version }}/fpm"
+log_path: /var/log/php
+
+# state
+state: present
+
+# install php for apache web server
+is_web_server_is_apache: true
