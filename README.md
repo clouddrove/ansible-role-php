@@ -20,9 +20,11 @@
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Licence">
 </a>
 <a href="Distribution">
-  <img src="https://img.shields.io/badge/Ubuntu-16.X%20%26%2018.X-brightgreen" alt="Distribution">
+  <img src="https://img.shields.io/badge/Ubuntu-16.x-yellowgreen" alt="Distribution">
 </a>
-
+<a href="Distribution">
+  <img src="https://img.shields.io/badge/Ubuntu-18.x-yellowgreen" alt="Distribution">
+</a>
 
 </p>
 <p align="center">
@@ -79,7 +81,7 @@ is_web_server_is_apache: true
 Installation
 ------------
 ```console
-ansible-galaxy install clouddrove.ansible_role_php
+$ ansible-galaxy install clouddrove.ansible_role_php
 ```
 
 Example Playbook
@@ -101,7 +103,7 @@ In this module testing is performed with [molecule](https://molecule.readthedocs
 
 You need to run the following command in the root of Ansible Role:
 ```console
-  molecule test
+  $ molecule test
 ```
 
 
