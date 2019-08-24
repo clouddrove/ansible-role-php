@@ -15,3 +15,5 @@ jobs:
          sudo apt-get install -y python-pip libssl-dev
          pip install --upgrade --user setuptools
          pip install --user molecule
+         molecule test
+ 
