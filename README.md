@@ -54,37 +54,44 @@ This module has a few dependencies:
 - [Molecule](https://molecule.readthedocs.io/en/stable/installation.html)
 - [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu)
 
-
+Distribution
+------------
+* OS support list:
+  * Ubuntu Bionic 18.04 (LTS)
+  * Ubuntu Xenial 16.04 (LTS)
+  * Ubuntu Yakkety 16.10
+  * Ubuntu Trusty 14.04 (LTS)
 
 
 ## What Includes
 
 Followiing things includes in this role:
-- PHP
+- PHP>7.0
 - PHP-FPM
 - PECL
 - Composer
 
+Installation
+------------
+```
+$ ansible-galaxy install zaxos.docker-ce-ansible-role
+```
+## Ansible Galaxy
 
+You can find it on the official
+[Ansible Galaxy](https://galaxy.ansible.com/clouddrove) if you want to
+rate it.
 
-
-
-## Examples
-
+Example Playbook
+----------------
 **IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/ansible-role-php/releases).
 
-
-### Simple Example
-For including the role in your playbook this is the basic configuration:
-```ansible
-    - hosts: localhost
-      remote_user: root
-      become: true
-      roles:
-        - ansible-role-php
+```yaml
+  - hosts: localhost
+    remote_user: root
+    roles:
+        - clouddrove.ansible_role_common
 ```
-
-
 
 
 ## Testing

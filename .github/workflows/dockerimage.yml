@@ -1,20 +1,21 @@
-name: Docker Image CI
-
-on: [push]
+---
+name: Molicule test
+# yamllint disable
+on:
+  pull_request:
+    branches:
+      - master
+# yamllint enable
 
 jobs:
-
-  build: 
- 
+  build:
     runs-on: ubuntu-18.04
- 
     steps:
-    - uses: actions/checkout@v1
-    - name: installl Molecule
-      run: | 
+      - uses: actions/checkout@v1
+      - name: Setup Molecule Environment And Test Ansible Role
+        run: |
          sudo apt-get install -y  python3-venv
          python3 -m venv .venv
          source .venv/bin/activate
          pip install -U setuptools pip 'molecule'
-         molecule --version
          molecule test
