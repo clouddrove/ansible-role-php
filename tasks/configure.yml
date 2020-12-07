@@ -5,6 +5,8 @@
     path: "{{ log_path }}"
     mode: 0755
     state: directory
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
 
 - name: create phpfpm log is enabled
   changed_when: false
@@ -16,6 +18,8 @@
     - "{{ log_path }}/php-pool-upstream-error.log"
     - "{{ log_path }}/php-ini-error.log"
     - "{{ log_path }}/php-pool-www-error.log"
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
 
 - name: transfer pool.d php-fpm configuration
   template:
@@ -23,7 +27,9 @@
     dest: "{{ php_fpm_dir }}/pool.d/{{ item | basename }}"
     force: true
   with_fileglob:
-    - ../templates/config/pool.d/*.conf
+    - ../templates/config/pool.d/*.*
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
 
 - name: transfer mods-available php configuration
   template:
@@ -32,12 +38,16 @@
     force: true
   with_fileglob:
     - ../templates/config/mods-available/*.ini
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
 
 - name: transfer php.ini php-fpm configuration
   template:
     src: config/php.ini
     dest: "{{ php_fpm_dir }}/php.ini"
     force: true
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
 
 - name: copy pecl extensions .ini files
   template:
@@ -46,13 +56,17 @@
     force: true
   with_fileglob:
     - ../templates/config/mods-available/*.ini
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
 
 - name: transfer php.ini apache configuration
   template:
     src: config/php.ini
     dest: "{{ php_dir }}/apache2/php.ini"
     force: true
-  when: is_web_server_is_apache
+  when: 
+    - is_web_server_is_apache
+    - ansible_facts['distribution'] == "Ubuntu"
   notify:
     - restart apache2
 
@@ -64,16 +78,22 @@
     group: root
     recurse: true
   changed_when: "False"
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
 
 - name: set is default inslled version
   changed_when: false
   command: update-alternatives --set php /usr/bin/php{{ php_version }}
   become: true
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
 
 - name: set is default inslled version for apache2
   changed_when: false
   command: a2enmod php{{ php_version }}
-  when: is_web_server_is_apache
+  when: 
+    - is_web_server_is_apache
+    - ansible_facts['distribution'] == "Ubuntu"
   become: true
   notify:
     - restart apache2
@@ -83,3 +103,5 @@
   command: /bin/true
   notify:
     - restart php-fpm
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"

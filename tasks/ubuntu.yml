@@ -1,10 +1,18 @@
 ---
+- name: Ensure dirmngr is installed (gnupg dependency).
+  apt:
+    name: dirmngr
+    state: present
 
 - name: add php {{ php_version }} repo
   apt_repository:
     repo: 'ppa:ondrej/php'
     update_cache: true
     validate_certs: false
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
+
+
 
 - name: install/remove php-fpm and packages
   apt:
@@ -46,13 +54,17 @@
   register: phpfpm_result
   notify:
     - reload php-fpm
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
 
 - name: enable php enable with apache
   apt:
     name: "libapache2-mod-php{{ php_version }}"
     state: "{{ state }}"
     update_cache: true
-  when: is_web_server_is_apache
+  when: 
+    - is_web_server_is_apache
+    - ansible_facts['distribution'] == "Ubuntu"
   notify:
     - reload php-fpm
 
@@ -60,7 +72,9 @@
   changed_when: false
   command: pecl update-channels
   become: true
-  when: state == "present"
+  when: 
+    - state == "present"
+    - ansible_facts['distribution'] == "Ubuntu"
 
 - name: enable pecl extensions
   pear:
@@ -70,5 +84,7 @@
   with_items:
     - mongodb
     - apcu
-    - mcrypt-1.0.2
+    # - mcrypt-1.0.2
     - redis
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"

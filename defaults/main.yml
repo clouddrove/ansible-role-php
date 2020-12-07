@@ -1,6 +1,7 @@
 ---
 # php versions supported versions 7.0>
-php_version: 7.3
+php_version: 7.4
+centos_php_version: 74
 
 # configurations
 php_dir: "/etc/php/{{ php_version }}"
@@ -12,3 +13,6 @@ state: present
 
 # install php for apache web server
 is_web_server_is_apache: true
+
+
+
