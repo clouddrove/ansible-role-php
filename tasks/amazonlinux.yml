@@ -1,0 +1,33 @@
+- name: Install dependencies
+  yum: 
+    name: 
+      - amazon-linux-extras
+    state: present
+  when:
+    - ansible_facts['distribution'] == "Amazon"
+
+- name: Confirm php available or not
+  shell: amazon-linux-extras | grep php
+  when:
+    - ansible_facts['distribution'] == "Amazon"
+
+
+- name: enabling the PHP 7.3
+  command: amazon-linux-extras enable php{{ php_version }}
+  when:
+    - ansible_facts['distribution'] == "Amazon"
+          
+
+- name: Install PHP 7.3 and some of the most common PHP modules
+  yum:
+    name: [
+      'php', 
+      'php-common', 
+      'php-opcache',
+      'php-cli' ,
+      'php-gd' ,
+      'php-curl', 
+      'php-mysqlnd']
+    state: present
+  when:
+    - ansible_facts['distribution'] == "Amazon"
