@@ -55,8 +55,6 @@
     name: "libapache2-mod-php{{ php_version }}"
     state: "{{ state }}"
     update_cache: true
-  when:
-    - is_web_server_is_apache
   notify:
     - reload php-fpm
 

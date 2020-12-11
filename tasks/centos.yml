@@ -73,7 +73,7 @@
 - name: transfer pool.d php-fpm configuration
   template:
     src: "{{ item }}"
-    dest: "{{ php_fpm_dir_cent }}/{{ item | basename }}"
+    dest: "{{ php_fpm_dir_centos }}/{{ item | basename }}"
     force: true
   with_fileglob:
     - ../templates/config/pool.d/*.*
@@ -81,7 +81,7 @@
 - name: transfer mods-available php configuration
   template:
     src: "{{ item }}"
-    dest: "{{ php_dir_cent }}/{{ item | basename }}"
+    dest: "{{ php_dir_centos }}/{{ item | basename }}"
     force: true
   with_fileglob:
     - ../templates/config/mods-available/*.ini
@@ -89,5 +89,5 @@
 - name: transfer php.ini php-fpm configuration
   template:
     src: config/php.ini
-    dest: "{{ php_fpm_dir_cent }}/php.ini"
+    dest: "{{ php_fpm_dir_centos }}/php.ini"
     force: true
