@@ -1,33 +1,101 @@
+---
 - name: Install dependencies
-  yum: 
-    name: 
+  yum:
+    name:
       - amazon-linux-extras
-    state: present
-  when:
-    - ansible_facts['distribution'] == "Amazon"
+    state: "{{ state }}"
 
 - name: Confirm php available or not
   shell: amazon-linux-extras | grep php
-  when:
-    - ansible_facts['distribution'] == "Amazon"
-
 
 - name: enabling the PHP 7.3
-  command: amazon-linux-extras enable php{{ php_version }}
-  when:
-    - ansible_facts['distribution'] == "Amazon"
-          
+  command: amazon-linux-extras enable php{{ amazonlinux_php_version }}
 
 - name: Install PHP 7.3 and some of the most common PHP modules
   yum:
     name: [
-      'php', 
-      'php-common', 
+      'php',
+      'php-common',
       'php-opcache',
       'php-cli' ,
       'php-gd' ,
-      'php-curl', 
-      'php-mysqlnd']
-    state: present
-  when:
-    - ansible_facts['distribution'] == "Amazon"
+      'php-curl',
+      'php-mysqlnd',
+      'php-mbstring',
+      'php-pecl-apcu',
+      'php-json',
+      'php-gmp',
+      'php-intl',
+      'php-soap',
+      'php-xml',
+      'php-devel',
+      'php-bcmath',
+      'php-fpm',
+      'php-pecl-redis',
+      'php-pear',
+      'php-pgsql',
+      'php-zip',
+      'php-bz2',
+      'php-readline',
+      'php-sqlite3',
+      'openssl-devel',
+      'cyrus-sasl-devel'
+      ]
+    state: "{{ state }}"
+
+#Composer
+- name: Download and install Composer in amazonlinux
+  shell: curl -sS https://getcomposer.org/installer | sudo php
+  become: yes
+
+- name: Move composer.phar file to usr/local/bin/composer
+  shell: mv composer.phar /usr/local/bin/composer
+
+#Configuration
+- name: create phpfpm log is enabled
+  file:
+    path: "{{ log_path }}"
+    mode: 0755
+    state: directory
+
+- name: create phpfpm log is enabled
+  changed_when: false
+  file:
+    path: "{{ item }}"
+    mode: 0644
+    state: touch
+  with_items:
+    - "{{ log_path }}/php-pool-upstream-error.log"
+    - "{{ log_path }}/php-ini-error.log"
+    - "{{ log_path }}/php-pool-www-error.log"
+
+- name: transfer pool.d php-fpm configuration
+  template:
+    src: "{{ item }}"
+    dest: "{{ php_fpm_dir_ama }}/{{ item | basename }}"
+    force: true
+  with_fileglob:
+    - ../templates/config/pool.d/*.*
+
+- name: transfer mods-available php configuration
+  template:
+    src: "{{ item }}"
+    dest: "{{ php_dir_ama }}/{{ item | basename }}"
+    force: true
+  with_fileglob:
+    - ../templates/config/mods-available/*.ini
+
+- name: transfer php.ini php-fpm configuration
+  template:
+    src: config/php.ini
+    dest: "{{ php_fpm_dir_ama }}/php.ini"
+    force: true
+
+- name: change php-fpm ownership
+  file:
+    path: "{{ php_dir }}"
+    state: directory
+    owner: root
+    group: root
+    recurse: true
+  changed_when: "False"

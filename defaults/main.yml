@@ -1,11 +1,18 @@
 ---
 # php versions supported versions 7.0>
-php_version: 7.4
-centos_php_version: 74
+php_version: 7.3
+centos_php_version: 73
+amazonlinux_php_version: 7.3
 
 # configurations
 php_dir: "/etc/php/{{ php_version }}"
 php_fpm_dir: "/etc/php/{{ php_version }}/fpm"
+php_fpm_dir_ama: "/etc/php-fpm.d"
+php_dir_ama: "/etc/php.d"
+
+php_dir_cent: "/etc/opt/remi/php{{centos_php_version}}/php.d"
+php_fpm_dir_cent: "/etc/opt/remi/php{{centos_php_version}}/php-fpm.d"
+
 log_path: /var/log/php
 
 # state

@@ -1,24 +1,15 @@
 ---
-
 - import_tasks: ubuntu.yml
   when:
     - state == "present"
-    - ansible_facts['distribution'] == "Ubuntu" 
-- import_tasks: composer.yml
-  when: 
-    - state == "present"
     - ansible_facts['distribution'] == "Ubuntu"
-- import_tasks: configure.yml
-  when: 
+    
+- import_tasks: amazonlinux.yml
+  when:
     - state == "present"
-    - ansible_facts['distribution'] == "Ubuntu"
+    - ansible_facts['distribution'] == "Amazon"
 
 - import_tasks: centos.yml
   when:
     - state == "present"
     - ansible_facts['distribution'] == "CentOS"
-
-- import_tasks: amazonlinux.yml
-  when:
-    - state == "present"
-    - ansible_facts['distribution'] == "Amazon"
