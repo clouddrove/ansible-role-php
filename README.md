@@ -107,11 +107,6 @@ Followiing things includes in this role:
   $ ansible-galaxy install clouddrove.ansible_role_php
 ```
 
-
-
-
-
-
 ## Feedback
 If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/ansible-role-php/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
 
