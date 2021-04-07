@@ -69,7 +69,6 @@
   ignore_errors: true
   with_items:
     - mongodb
-    - apcu
     - redis
     - mcrypt
-
+    - apcu
