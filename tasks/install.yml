@@ -70,5 +70,6 @@
   with_items:
     - mongodb
     - apcu
-    - mcrypt
     - redis
+    - mcrypt
+
