@@ -1,6 +1,6 @@
 ---
 # php versions supported versions 7.0>
-php_version: 7.3
+php_version: 7.4
 
 # configurations
 php_dir: "/etc/php/{{ php_version }}"
