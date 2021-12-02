@@ -60,4 +60,3 @@
   command: pecl update-channels
   become: true
   when: state == "present"
-
