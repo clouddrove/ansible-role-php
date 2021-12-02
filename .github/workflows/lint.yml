@@ -61,13 +61,13 @@ jobs:
         uses: pre-commit/action@v2.0.3
         continue-on-error: true
 
-#      - name: 'Slack Notification'
-#        uses: clouddrove/action-slack@v2
-#        with:
-#          status: ${{ job.status }}
-#          fields: repo,author
-#          author_name: 'CloudDrove Inc.'
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_ANSIBLE }}
-#        if: always()
+      - name: 'Slack Notification'
+        uses: clouddrove/action-slack@v2
+        with:
+          status: ${{ job.status }}
+          fields: repo,author
+          author_name: 'CloudDrove Inc.'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_ANSIBLE }}
+        if: always()
