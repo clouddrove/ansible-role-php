@@ -7,7 +7,7 @@
     Ansible Role PHP
 </h1>
 
-<p align="center" style="font-size: 1.2rem;">
+<p align="center" style="font-size: 1.2rem;"> 
     This ansible role is used to install PHP server on Debian.
      </p>
 
@@ -45,7 +45,7 @@
 
 
 
-We eat, drink, sleep and most importantly love **DevOps**. DevOps always promotes automation and standardisation. While setting up various environments like local, dev, testing, production, etc. it is critical to maintain the same environment across. This can easily be achieved using automating the environment setup & installation with the help of ansible-playbooks.
+We eat, drink, sleep and most importantly love **DevOps**. DevOps always promotes automation and standardisation. While setting up various environments like local, dev, testing, production, etc. it is critical to maintain the same environment across. This can easily be achieved using automating the environment setup & installation with the help of ansible-playbooks. 
 
 Smaller roles are created for each environment elements; which also include tasks & tests. These roles can then be grouped together in [ansible-playbook](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html) to achieve the desired yet consistent results.
 
@@ -53,7 +53,7 @@ Smaller roles are created for each environment elements; which also include task
 
 ## Prerequisites
 
-This module has a few dependencies:
+This module has a few dependencies: 
 
 - [Ansible2.8](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 - [Python](https://www.python.org/downloads)
@@ -63,7 +63,8 @@ This module has a few dependencies:
 
 ## What Includes
 
-Followiing things includes in this role:
+Following things includes in this role:
+
 - Php-7.3
 - Php-fpm
 - Pecl
@@ -107,7 +108,12 @@ Followiing things includes in this role:
   $ ansible-galaxy install clouddrove.ansible_role_php
 ```
 
-## Feedback
+
+
+
+
+
+## Feedback 
 If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/ansible-role-php/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
 
 If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/clouddrove/ansible-role-php)!
