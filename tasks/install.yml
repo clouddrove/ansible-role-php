@@ -32,7 +32,6 @@
       'php{{ php_version }}-xml',
       'php{{ php_version }}-zip',
       'php{{ php_version }}-dev',
-      'php{{ php_version }}-mongodb',
       'php{{ php_version }}-sqlite3',
       'pkg-config',
       'libssl-dev',
@@ -62,13 +61,3 @@
   become: true
   when: state == "present"
 
-- name: enable pecl extensions
-  pear:
-    name: "pecl/{{ item }}"
-    state: "{{ state }}"
-  ignore_errors: true
-  with_items:
-    - mongodb
-    - redis
-    - mcrypt
-    - apcu
