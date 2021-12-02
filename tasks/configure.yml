@@ -22,6 +22,7 @@
     src: "{{ item }}"
     dest: "{{ php_fpm_dir }}/pool.d/{{ item | basename }}"
     force: true
+    mode: 0644
   with_fileglob:
     - ../templates/config/pool.d/*.conf
 
@@ -30,6 +31,7 @@
     src: "{{ item }}"
     dest: "{{ php_dir }}/mods-available/{{ item | basename }}"
     force: true
+    mode: 0644
   with_fileglob:
     - ../templates/config/mods-available/*.ini
 
@@ -38,12 +40,14 @@
     src: config/php.ini
     dest: "{{ php_fpm_dir }}/php.ini"
     force: true
+    mode: 0644
 
 - name: copy pecl extensions .ini files
   template:
     src: "{{ item }}"
     dest: "{{ php_dir }}/mods-available/{{ item | basename }}"
     force: true
+    mode: 0644
   with_fileglob:
     - ../templates/config/mods-available/*.ini
 
@@ -52,6 +56,7 @@
     src: config/php.ini
     dest: "{{ php_dir }}/apache2/php.ini"
     force: true
+    mode: 0644
   when: is_web_server_is_apache
   notify:
     - restart apache2
