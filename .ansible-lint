@@ -9,3 +9,4 @@ warn_list:
 exclude_paths:
   - molecule/
   - tests/
+  - .cache/
