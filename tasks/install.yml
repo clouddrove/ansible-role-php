@@ -1,6 +1,6 @@
 ---
 
-- name: Add php {{ php_version }} repo
+- name: Add php repo
   ansible.builtin.apt_repository:
     repo: 'ppa:ondrej/php'
     update_cache: true
