@@ -1,23 +1,23 @@
 ---
 
-- name: start php-fpm
-  service:
+- name: Start php-fpm
+  ansible.builtin.service:
     name: "php{{ php_version }}-fpm"
     state: started
 
-- name: reload php-fpm
-  service:
+- name: Reload php-fpm
+  ansible.builtin.service:
     name: "php{{ php_version }}-fpm"
     state: reloaded
   when: state == "present"
 
-- name: restart php-fpm
-  service:
+- name: Restart php-fpm
+  ansible.builtin.service:
     name: "php{{ php_version }}-fpm"
     state: restarted
 
-- name: restart apache2
-  service:
-    name: apache2
+- name: Restart apache2
+  ansible.builtin.service:
+    name: Apache2
     state: restarted
     enabled: ture

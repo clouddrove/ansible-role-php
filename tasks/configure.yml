@@ -1,14 +1,14 @@
 ---
 
-- name: create phpfpm log is enabled
-  file:
+- name: Create phpfpm log is enabled
+  ansible.builtin.file:
     path: "{{ log_path }}"
     mode: 0755
     state: directory
 
-- name: create phpfpm log is enabled
+- name: Create phpfpm log is enabled
   changed_when: false
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     mode: 0644
     state: touch
@@ -17,8 +17,8 @@
     - "{{ log_path }}/php-ini-error.log"
     - "{{ log_path }}/php-pool-www-error.log"
 
-- name: transfer pool.d php-fpm configuration
-  template:
+- name: Transfer pool.d php-fpm configuration
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ php_fpm_dir }}/pool.d/{{ item | basename }}"
     force: true
@@ -26,8 +26,8 @@
   with_fileglob:
     - ../templates/config/pool.d/*.conf
 
-- name: transfer mods-available php configuration
-  template:
+- name: Transfer mods-available php configuration
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ php_dir }}/mods-available/{{ item | basename }}"
     force: true
@@ -35,15 +35,15 @@
   with_fileglob:
     - ../templates/config/mods-available/*.ini
 
-- name: transfer php.ini php-fpm configuration
-  template:
+- name: Transfer php.ini php-fpm configuration
+  ansible.builtin.template:
     src: config/php.ini
     dest: "{{ php_fpm_dir }}/php.ini"
     force: true
     mode: 0644
 
-- name: copy pecl extensions .ini files
-  template:
+- name: Copy pecl extensions .ini files
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ php_dir }}/mods-available/{{ item | basename }}"
     force: true
@@ -51,8 +51,8 @@
   with_fileglob:
     - ../templates/config/mods-available/*.ini
 
-- name: transfer php.ini apache configuration
-  template:
+- name: Transfer php.ini apache configuration
+  ansible.builtin.template:
     src: config/php.ini
     dest: "{{ php_dir }}/apache2/php.ini"
     force: true
@@ -61,8 +61,8 @@
   notify:
     - restart apache2
 
-- name: change php-fpm ownership
-  file:
+- name: Change php-fpm ownership
+  ansible.builtin.file:
     path: "{{ php_dir }}"
     state: directory
     owner: root
@@ -70,21 +70,24 @@
     recurse: true
   changed_when: "False"
 
-- name: set is default inslled version
+- name: Set is default inslled version
   changed_when: false
-  command: update-alternatives --set php /usr/bin/php{{ php_version }}
+  ansible.builtin.command:
+    cmd: update-alternatives --set php /usr/bin/php{{ php_version }}
   become: true
 
-- name: set is default inslled version for apache2
+- name: Set is default inslled version for apache2
   changed_when: false
-  command: a2enmod php{{ php_version }}
+  ansible.builtin.command:
+    cmd: a2enmod php{{ php_version }}
   when: is_web_server_is_apache
   become: true
   notify:
     - restart apache2
 
-- name: restart php
+- name: Restart php
   changed_when: false
-  command: /bin/true
+  ansible.builtin.command:
+    cmd: /bin/true
   notify:
     - restart php-fpm

@@ -1,13 +1,13 @@
 ---
 
-- name: add php {{ php_version }} repo
-  apt_repository:
+- name: Add php {{ php_version }} repo
+  ansible.builtin.apt_repository:
     repo: 'ppa:ondrej/php'
     update_cache: true
     validate_certs: false
 
-- name: install/remove php-fpm and packages
-  apt:
+- name: Install/remove php-fpm and packages
+  ansible.builtin.apt:
     name: [
       'php{{ php_version }}-fpm',
       'php{{ php_version }}',
@@ -46,8 +46,8 @@
   notify:
     - reload php-fpm
 
-- name: enable php enable with apache
-  apt:
+- name: Enable php enable with apache
+  ansible.builtin.apt:
     name: "libapache2-mod-php{{ php_version }}"
     state: "{{ state }}"
     update_cache: true
@@ -55,8 +55,9 @@
   notify:
     - reload php-fpm
 
-- name: update pecl channel
+- name: Update pecl channel
   changed_when: false
-  command: pecl update-channels
+  ansible.builtin.command:
+    cmd: pecl update-channels
   become: true
   when: state == "present"
